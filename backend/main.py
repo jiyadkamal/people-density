@@ -40,7 +40,7 @@ MODELS = {
 # Email Alert Configuration
 LAST_EMAIL_TIME = 0
 EMAIL_COOLDOWN = 300  # 5 minutes in seconds
-ALERT_RECIPIENT = "jiyadkamal1@gmail.com"
+ALERT_RECIPIENT = "sng23cs086@sngce.ac.in"
 ALERT_THRESHOLD = 5
 
 def send_alert_email(count: int):

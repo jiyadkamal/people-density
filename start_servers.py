@@ -19,7 +19,6 @@ def run_servers():
     
     print("\n✅ Both servers are starting. Please wait for the Next.js compilation to finish.")
     print("👉 Frontend: http://localhost:3000")
-    print("👉 Backend: http://localhost:8000")
     print("\nPress Ctrl+C in this terminal to stop both servers.")
     
     try:

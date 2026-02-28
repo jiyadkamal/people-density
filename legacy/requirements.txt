@@ -1,7 +1,0 @@
-streamlit
-streamlit-extras
-ultralytics
-opencv-python-headless
-pillow
-numpy
-matplotlib
