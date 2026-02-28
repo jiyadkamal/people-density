@@ -101,12 +101,8 @@ async def detect_people(
         print("Backend Error: Could not decode image")
         return {"error": "Invalid image"}
 
-    # Run detection with smaller imgsz for speed
-    model = MODELS.get(model_name, MODELS["yolov8n.pt"])
-    
-    # Inference timing
-    inf_start = time.time()
-    results = model(img, conf=conf_threshold, imgsz=320, verbose=False)
+    # Run detection with standard imgsz for HD accuracy
+    results = model(img, conf=conf_threshold, imgsz=640, verbose=False)
     inf_end = time.time()
     
     person_count = 0
@@ -115,10 +111,11 @@ async def detect_people(
         if int(box.cls[0]) == 0:  # Person class
             person_count += 1
             x1, y1, x2, y2 = map(int, box.xyxy[0])
-            cv2.rectangle(img, (x1, y1), (x2, y2), (136, 255, 0), 2) # BGR for #00ff88
+            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 3) # Greener and thicker for HD
+            cv2.putText(img, "Person", (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
-    # Encode image to base64 with optimized quality for speed
-    _, buffer = cv2.imencode('.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 65])
+    # Encode image to base64 with maximum quality
+    _, buffer = cv2.imencode('.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
     img_base64 = base64.b64encode(buffer).decode('utf-8')
 
     total_time = (time.time() - start_time) * 1000
